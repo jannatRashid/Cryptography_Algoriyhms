@@ -1,7 +1,10 @@
 import java.util.Scanner;
-//2nd version
+
 public class VigenereCipher_method1 {
     public static void main(String[] args) {
+
+        System.out.println("Vigenere Cipher _ Method1");
+
         Scanner scanner = new Scanner(System.in);
 
         // Define the Vigenere table
@@ -51,6 +54,27 @@ public class VigenereCipher_method1 {
 
         // Display the encrypted text
         System.out.println("Encrypted text: " + encryptedText.toString());
+
+        // Decrypt the encrypted text
+        StringBuilder decryptedText = new StringBuilder();
+        for (int i = 0, j = 0; i < encryptedText.length(); i++) {
+            char c = encryptedText.charAt(i);
+            if (Character.isLetter(c)) {
+                int row = key.charAt(j % key.length()) - 'A';
+                for (int col = 0; col < 26; col++) {
+                    if (vigenereTable[row][col] == c) {
+                        decryptedText.append((char) ('A' + col));
+                        break;
+                    }
+                }
+                j++;
+            } else {
+                decryptedText.append(c);
+            }
+        }
+
+        // Display the decrypted text
+        System.out.println("Decrypted text: " + decryptedText.toString());
 
         scanner.close();
     }
